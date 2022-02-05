@@ -2,6 +2,11 @@ import java.io.*;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/**
+ * Accepts user input and sets up the Cache(s) 
+ * Searches the Cache(s) with the user provided input file
+ * Displays the results of the searches
+ */
 public class Test {
 
     private static int numCaches;
@@ -60,27 +65,38 @@ public class Test {
 
     }
 
+    /**
+     * Parses through an input file and searches for the words in the Cache(s)
+     * @param file
+     * @throws FileNotFoundException
+     */
+
     private static void parseFile(File file) throws FileNotFoundException{
-        Scanner fileScan = new Scanner(file);
+        try {
+            // Scan through the file line by line
+            BufferedReader scanner = new BufferedReader(new FileReader(file));
+            String line = scanner.readLine();
+            while (line != null){
+                String[] words = line.split("\\s+");
 
-        while (fileScan.hasNextLine()) {
-            String line = fileScan.nextLine();
-            Scanner lineScan = new Scanner(line);
+                for (String word : words){
+                    if (word.length() > 0){ // Skip empty strings
+                        if(numCaches == 1){
+                            baseCache.contains(word);
+                        }
 
-
-            if(numCaches == 1){
-                    
-                while (lineScan.hasNext()) {
-                    baseCache.contains(lineScan.next());
+                        if(numCaches == 2){
+                            mCache.multiSearch(word);
+                        }
+                    }
                 }
-            }
 
-            if(numCaches == 2){
-                while (lineScan.hasNext()) {
-                    mCache.multiSearch(lineScan.next());
-                }
+                line = scanner.readLine();
             }
-
+        } catch (FileNotFoundException e){
+            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

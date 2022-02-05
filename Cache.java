@@ -29,6 +29,10 @@ class Cache<T> {
 
     }
 
+    /**
+     * Adds a new node to the front of the list
+     * @param element
+     */
     public void addToFront(T element) {
 
         if(size == capacity){
@@ -51,6 +55,10 @@ class Cache<T> {
     }
 
 
+    /**
+     * removes the last node in the list
+     * @return
+     */
     private T removeLast() {
         if (isEmpty()) {//confirms that there are elements in the list to remove
             throw new NoSuchElementException();
@@ -73,6 +81,10 @@ class Cache<T> {
         return retVal;
     }
 
+     /**
+     * removes the first node in the list
+     * @return
+     */
     private T removeFirst() {
         if (isEmpty()) {//confirms that there are elements in the list to remove
             throw new NoSuchElementException();
@@ -106,6 +118,11 @@ class Cache<T> {
 
     }
 
+    /**
+     * Removes the node designated in the parameters from the list
+     * @param data
+     * @return
+     */
     private T remove(T data) {
 
         Node<T> current = head;
@@ -140,6 +157,11 @@ class Cache<T> {
     }
 
 
+    /**
+     * returns the index of the element in the parameter
+     * @param element
+     * @return
+     */
     private int indexOf(T element) {
         Node<T> current = head;
         int currentIndex = 0;
@@ -155,6 +177,11 @@ class Cache<T> {
         return currentIndex;
     }
 
+    /**
+     * Returns the target element if it is contained in the list
+     * @param target
+     * @return
+     */
     public T contains(T target) {
 
         accesses ++;
@@ -166,6 +193,10 @@ class Cache<T> {
         }
     }
 
+    /**
+     * returns if the list if empty or not
+     * @return
+     */
     private boolean isEmpty() {
         if (head == null) {
             return true;
@@ -174,6 +205,10 @@ class Cache<T> {
         }
     }
 
+    /**
+     * returns the hit rate of the cache
+     * @return
+     */
     public double getHitRate(){
         double hitRate = ((double)hits)/accesses;
 
@@ -181,24 +216,35 @@ class Cache<T> {
 
     }
 
+    /**
+     * increments the hit number of Cache
+     */
     public void incrementHits(){
         hits++;
     }
 
+    /**
+     * returns the miss rate of Cache
+     * @return
+     */
     public double getMissRate(){
         double missRate = 1.0 - getHitRate();
 
         return missRate;
     }
 
+    /**
+     * returns the hit rate of Cache
+     * @return
+     */
     public int getHits() {
         return hits;
     }
 
-    public void setHits(int hits) {
-        this.hits = hits;
-    }
-
+    /**
+     * returns the numbere of times Cache has been searched
+     * @return
+     */
     public int getAccesses() {
         return accesses;
     }
