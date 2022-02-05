@@ -20,6 +20,7 @@ public class MultiCache<T>{
 
             layer1.incrementHits();
             layer1.move(element);
+            layer2.move(element);
         }else{
             if(layer2.contains(element) != null){
                 layer2.incrementHits();
