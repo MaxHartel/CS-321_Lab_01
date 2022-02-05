@@ -15,6 +15,7 @@ public class Test {
         if(args[0].equals("1") && args.length == 3){
 
             baseCache = new Cache<>(Integer.parseInt(args[1]));
+            System.out.println("First level cache with " + args[1] + " entries has been created");
             inputFile = new File(args[2]);
             numCaches = 1;
 
@@ -46,7 +47,7 @@ public class Test {
             System.out.println("The 2nd-level cache hit ratio: 0");
 
         }else{
-            System.out.println("The number of global refrences: " + mCache.getTotalAccesses());
+            System.out.println("The number of global refrences: " + mCache.getFirstAccesses());
             System.out.println("The number of global cache hits: " + mCache.getTotalHits());
             System.out.println("The global hit ratio: " + mCache.getCombinedHitRate());
             System.out.println("\nThe number of 1st-level refrences: " + mCache.getFirstAccesses());

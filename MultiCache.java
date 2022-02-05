@@ -8,6 +8,8 @@ public class MultiCache<T>{
 
         layer1 = new Cache<T>(capacity1);
         layer2 = new Cache<T>(capacity2);
+        System.out.println("First level cache with " + capacity1 + " entries has been created");
+        System.out.println("Second level cache with " + capacity2 + " entries has been created\n");
 
 
     }
@@ -16,10 +18,11 @@ public class MultiCache<T>{
 
         if(layer1.contains(element) != null){
 
+            layer1.incrementHits();
             layer1.move(element);
         }else{
             if(layer2.contains(element) != null){
-                
+                layer2.incrementHits();
                 layer2.move(element);
                 layer1.addToFront(element);
             }else{

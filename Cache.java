@@ -12,6 +12,7 @@ class Cache<T> {
     private int capacity;
     private int hits;
     private int accesses;
+    private int size;
 
 
     /**
@@ -23,25 +24,17 @@ class Cache<T> {
         capacity = space;
         hits = 0;
         accesses = 0;
+        size = 0;
 
-    }
-
-
-    public void add(T element) {
-        Node<T> newNode = new Node<T>(element);
-        newNode.setPrevious(tail);
-
-        if (isEmpty()) {//special case: empty list
-            head = newNode;
-        } else {// general case
-            tail.setNext(newNode);
-        }
-
-        tail = newNode;
 
     }
 
     public void addToFront(T element) {
+
+        if(size == capacity){
+            removeLast();
+        }
+
         Node<T> newNode = new Node<T>(element);
         newNode.setNext(head);
 
@@ -53,15 +46,12 @@ class Cache<T> {
 
         head = newNode;
 
-        if(indexOf(tail.getElement()) == capacity){
-            removeLast();
-
-        }
+        size++;
 
     }
 
 
-    public T removeLast() {
+    private T removeLast() {
         if (isEmpty()) {//confirms that there are elements in the list to remove
             throw new NoSuchElementException();
         }
@@ -78,10 +68,12 @@ class Cache<T> {
             tail = newTail;
         }
 
+        size--;
+
         return retVal;
     }
 
-    public T removeFirst() {
+    private T removeFirst() {
         if (isEmpty()) {//confirms that there are elements in the list to remove
             throw new NoSuchElementException();
         }
@@ -98,6 +90,8 @@ class Cache<T> {
             head = newHead;
         }
 
+        size--;
+
         return retVal;
     }
 
@@ -109,13 +103,10 @@ class Cache<T> {
     public void move(T element){
         remove(element);
         addToFront(element);
+
     }
 
-    public T remove(T data) {
-
-        if (contains(data) == null) {//confirms that chosen element is in list
-            throw new NoSuchElementException();
-        }
+    private T remove(T data) {
 
         Node<T> current = head;
 
@@ -143,6 +134,8 @@ class Cache<T> {
         current.setNext(current.getNext().getNext());
         afterDeleted.setPrevious(current);
 
+        size--;
+
         return retVal;
     }
 
@@ -167,10 +160,8 @@ class Cache<T> {
         accesses ++;
 
         if (indexOf(target) > -1) {
-            hits ++;
             return target;
         } else {
-            addToFront(target);
             return null;
         }
     }
@@ -188,6 +179,10 @@ class Cache<T> {
 
         return hitRate;
 
+    }
+
+    public void incrementHits(){
+        hits++;
     }
 
     public double getMissRate(){
