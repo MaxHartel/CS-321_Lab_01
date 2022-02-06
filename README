@@ -26,14 +26,14 @@ COMPILING AND RUNNING:
 
  From the directory containing all source files, compile the
  driver class (and all dependencies) with the command:
-# $ javac Test.java
+### $ javac Test.java
 
  Run the compiled class file with the command:
-# $ java Test 1 <cache size> <input textfile name>
+### $ java Test 1 < cache size> < input textfile name> 
 
  or
 
-# java Test 2 <1st-level cache size> <2nd-level cache size> <input textfile name>
+### $ java Test 2 < 1st-level cache size> < 2nd-level cache size> < input textfile name>
 
  Console output will give the results after the program finishes.
 
